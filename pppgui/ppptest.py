@@ -9,7 +9,7 @@
 #  (for new PPP Pressure Tester rig)
 # ---------------------------------------------------------------------
 import os, sys
-sys.path.append("/home/othman/PycharmProjects/pppgui/fluidics")
+sys.path.append("/home/othman/PycharmProjects/GitStuff/OC-playgroung/pppgui/fluidics")
 import time
 import datetime
 from csv import writer
@@ -36,7 +36,6 @@ class PressureTest(object):
         print('hi running pressure test')
         cp.centrisInit()
         gc.init()
-        ps.connect_to_ps()
 
     def home(self):
         gc.home()

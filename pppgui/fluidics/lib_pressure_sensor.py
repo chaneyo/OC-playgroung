@@ -7,7 +7,7 @@ class pressureSensor(object):
 
     def __init__(self):
         try:
-            self.ser = Serial('/dev/USBttyx', 115200, 8, 'N', 1, 0.1, 0, 0, 0, 0)
+            self.ser = "Serial('/dev/USBttyx', 115200, 8, 'N', 1, 0.1, 0, 0, 0, 0)"
             print('p sensor connected')
         except:
             print('No Pressure Sensor Detected')
@@ -18,8 +18,8 @@ class pressureSensor(object):
         :return: Pressure in psi
         '''
 
-        self.ser.flushInput()
-        self.ser.write('RB412\r\n')
+        self.ser #.flushInput()
+        self.ser #.write('RB412\r\n')
         # x = int(r[2:9], 16) move this back in when implamenting
         x = random.random()  # take this out
         pressure = ((((x * 1000) / (2 ** 22)) * 100) * 0.000145)
