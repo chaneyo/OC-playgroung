@@ -121,7 +121,7 @@ class sendToTecan(object):
         self.connect()
 
     def connect(self):
-        """ DEPRECATED in favor of `cycle_connection` """
+        """ 'DEPRECATED in favor of `cycle_connection`' """
         self._commHandle.connect((tecanIpAddr, tecanPort))
         return True  # had to add for gantryTecan.py to connect properly
 
@@ -323,7 +323,7 @@ class sendToTecan(object):
 
     # disconnect cleanly by closing the file handle
     def disconnect(self):
-        """ DEPRECATED in favor of `cycle_connection` """
+        """ 'DEPRECATED in favor of `cycle_connection`' """
         SHUT_RDWR = 1
         # self.__commHandle.shutdown(SHUT_RDWR)
         self._commHandle.close()
