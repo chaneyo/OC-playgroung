@@ -1,5 +1,4 @@
 #!/home/genia/Enthought/Canopy_64bit/User/bin/python
-# import time
 
 class gantryTecan(object):
 
