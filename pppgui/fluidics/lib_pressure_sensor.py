@@ -18,10 +18,12 @@ class pressureSensor(object):
         :return: Pressure in psi
         '''
 
-        self.ser #.flushInput()
-        self.ser #.write('RB412\r\n')
-        # x = int(r[2:9], 16) move this back in when implamenting
-        x = random.random()  # take this out
-        pressure = ((((x * 1000) / (2 ** 22)) * 100) * 0.000145)
-        print(x)
-        return pressure
+        """self.ser.flushInput()
+        self.ser.write('RB404\r\n')
+        r = ser.readline()
+        x = int(r[2:9],16)
+        print('int value: ',x)
+        z = ((x*1000)/(4194304))*0.0145038""" # move this back in when implamenting
+        z = random.random()  # take this out
+        print(z)
+        return z
