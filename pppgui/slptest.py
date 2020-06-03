@@ -2,28 +2,25 @@
 # ---------------------------------------------------------------------
 #  Copyright (C) 2020 Roche Sequencing Solutions.  All rights reserved.
 #
-#  Purpose: Pressure testing class that controls the robot, pump, and pressure sensor.
+#  Purpose: Pressure testing class that controls pump, ASV, and pressure sensor.
 #
 #  Author : Othman Chaney (othman.chaney@roche.com) under joel's mentor-ship
 #
-#  (for new PPP Pressure Tester rig)
+#  (for new SLT Pressure Tester rig)
 # ---------------------------------------------------------------------
 import os, sys
-sys.path.append("/home/othman/PycharmProjects/GitStuff/OC-playgroung/pppgui/fluidics")
+sys.path.append("/home/othman/PycharmProjects/GitStuff/OC-playgroung/slptgui/fluidics")
 import time
 import datetime
 from csv import writer
 from csv import DictWriter
-from gantryTecan import gantryTecan
 from CentrisPump import CentrisPump
 from lib_pressure_sensor import pressureSensor
 # outline
 # Make a class that includes the following:
-# inits the robot, pump. and pressure tester
-# homes the robot
-# library on the location of the 4 lanes per chip
-# have a function per chip that calls into the location of each lane on the chip
-# have a function that does the pressure test and the clog test
+# inits the pump and pressure tester
+# have a function per chip lane that calls the pressure test
+# have a function that does the pressure test and the clog test per chip lane.
 # incorporate the pressure and clog test into each lane on a chip
 dt = datetime.datetime.now()
 gc = gantryTecan()
