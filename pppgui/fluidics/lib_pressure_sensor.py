@@ -6,11 +6,11 @@ from decimal import Decimal
 class pressureSensor(object):
 
     def __init__(self):
-        try:
+        '''try:
             self.ser = "Serial('/dev/USBttyx', 115200, 8, 'N', 1, 0.1, 0, 0, 0, 0)"
             print('p sensor connected')
-        except:
-            print('No Pressure Sensor Detected')
+        except:'''
+        print('No Pressure Sensor Detected')
 
     def read_pressure(self):
         '''

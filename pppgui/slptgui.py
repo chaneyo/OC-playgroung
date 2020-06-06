@@ -257,7 +257,7 @@ class Ui_ChipPressureTest(object):
         self.textBrowser.clear()
         m = 'Chip #             Date                Lane1 (PT/CT)                       Lane2 (PT/CT)                  Lane3 (PT/CT)                     Lane4 (PT/CT)'
         self.textBrowser.append(m)
-        for i in range(16):
+        for i in range(4):
             chip_numb = str(self.onCheckBox_toggled())
             if chip_numb == 'None':
                 break
@@ -265,7 +265,7 @@ class Ui_ChipPressureTest(object):
                 print(chip_numb)
                 x = PT.test_gui(chip_numb)
                 self.textBrowser.append(x)
-                # also add a method that cleans up the presentation of the data
+
 
     def onCheckBox_toggled(self):
         while True:
@@ -281,42 +281,6 @@ class Ui_ChipPressureTest(object):
             elif self.checkBox_chip4.isChecked():
                 self.checkBox_chip4.setChecked(False)
                 return '4'
-            elif self.checkBox_chip5.isChecked():
-                self.checkBox_chip5.setChecked(False)
-                return '5'
-            elif self.checkBox_chip6.isChecked():
-                self.checkBox_chip6.setChecked(False)
-                return '6'
-            elif self.checkBox_chip7.isChecked():
-                self.checkBox_chip7.setChecked(False)
-                return '7'
-            elif self.checkBox_chip8.isChecked():
-                self.checkBox_chip8.setChecked(False)
-                return '8'
-            elif self.checkBox_chip9.isChecked():
-                self.checkBox_chip9.setChecked(False)
-                return '9'
-            elif self.checkBox_chip10.isChecked():
-                self.checkBox_chip10.setChecked(False)
-                return '10'
-            elif self.checkBox_chip11.isChecked():
-                self.checkBox_chip11.setChecked(False)
-                return '11'
-            elif self.checkBox_chip12.isChecked():
-                self.checkBox_chip12.setChecked(False)
-                return '12'
-            elif self.checkBox_chip13.isChecked():
-                self.checkBox_chip13.setChecked(False)
-                return '13'
-            elif self.checkBox_chip14.isChecked():
-                self.checkBox_chip14.setChecked(False)
-                return '14'
-            elif self.checkBox_chip15.isChecked():
-                self.checkBox_chip15.setChecked(False)
-                return '15'
-            elif self.checkBox_chip16.isChecked():
-                self.checkBox_chip16.setChecked(False)
-                return '16'
             else:
                 break
         # add the rest of the checkBox's
