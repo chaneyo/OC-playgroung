@@ -29,9 +29,7 @@ ps = pressureSensor()
 
 class PressureTest(object):
 
-    def __init__(self, p1, p2):
-        self.p1 = p1
-        self.p2 = p2
+    def __init__(self):
         print('hi running pressure test')
         pg.main_inlet_ASV_close()
 
@@ -51,6 +49,7 @@ class PressureTest(object):
         elif lane == '4':
             test = self.pressure_test_lane4()
         else:
+            test = 'try again'
             print('pick a number between 1 and 4 please')
         return test
 
@@ -63,8 +62,9 @@ class PressureTest(object):
         row_dicts = {'Lane #': lane, 'Date': date, 'Pressure Test': p1, 'Clog Test': c1}
         x = '   {}              {}              {}                                {}'
         y = x.format(lane, date, p1.split(':')[1], c1)
+        lanes = 'Lane: %f' % int(lane)
         self.append_dict_as_row('/home/othman/Desktop/test1.csv', row_dicts, field_names)
-        print(lane, date, p1, c1)
+        print(lanes, date, p1, c1)
         return y
         #else:
          #   print('nice try')
@@ -166,6 +166,6 @@ class PressureTest(object):
 
 if __name__ == '__main__':
     lane_numb = raw_input('\nPlease select a number between 1 and 4 \n')
-    PT = PressureTest(p1=float, p2=float)
+    PT = PressureTest(p1=int, p2=int)
     PT.check_clamp()
     PT.lane_loop_pressure_test(lane_numb)
