@@ -86,11 +86,11 @@ class PressureTest(object):
         pg.ASV4_in_close()
         pg.all_ASV_outlet_close()
         if p1 > p2:
-            result = '/Pass'
+            result = 'Pass'
         elif p1 < p2:
-            result = '/Fail'
+            result = 'Fail'
         elif p1 == p2:
-            result = '/Fail'
+            result = 'Fail'
         return result
 
     def pressure_test_lane1(self):
