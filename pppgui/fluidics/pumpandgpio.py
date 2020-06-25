@@ -76,7 +76,7 @@ class pumpandgpio(object):
     def all_ASV_outlet_close(self):
         """gpio.setmode(gpio.BCM)
         gpio.setup(18, gpio.out)
-        gpio.output(18, gpio.HIGH)"""
+        gpio.output(18, gpio.LOW)"""
         print('All ASV outlet closed')
 
     def main_inlet_ASV_open(self):
