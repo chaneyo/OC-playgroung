@@ -246,10 +246,12 @@ class Ui_ChipPressureTest(object):
 
     def init_click(self):
         time.sleep(2)
+        # add init to do init
         self.textBrowser.setText('Initlize Completed')
 
     def home_click(self):
         time.sleep(4)
+        # add home button to actually go home
         self.textBrowser.setText('Homing Completed')
         self.InitRobot.setText('Wussup fool')
 
