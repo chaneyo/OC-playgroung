@@ -1,4 +1,6 @@
 import random
+import numpy as np
+import matplotlib.pyplot as plt
 from serial import Serial
 from decimal import Decimal
 
@@ -7,7 +9,7 @@ class pressureSensor(object):
 
     def __init__(self):
         try:
-            self.ser = "Serial('/dev/USBttyx', 115200, 8, 'N', 1, 0.1, 0, 0, 0, 0)"
+            # self.ser = "Serial('/dev/USBttyx', 115200, 8, 'N', 1, 0.1, 0, 0, 0, 0)"
             print('p sensor connected')
         except:
             print('No Pressure Sensor Detected')
@@ -23,7 +25,18 @@ class pressureSensor(object):
         r = ser.readline()
         x = int(r[2:9],16)
         print('int value: ',x)
-        z = ((x*1000)/(4194304))*0.0145038""" # move this back in when implamenting
+        z = ((x*1000)/(4194304))*0.0145038"""  # move this back in when implamenting
         z = random.random()  # take this out
         print(z)
         return z
+
+    def plotter(self):
+
+        plt.axis([0, 10, 0, 1])
+
+        for i in range(10):
+            y = self.read_pressure()
+            plt.scatter(i, y)
+            plt.pause(0.05)
+
+        plt.show()
