@@ -1,12 +1,3 @@
-###################################################################
-#                                                                 #
-#                    PLOT A LIVE GRAPH (PyQt5)                    #
-#                  -----------------------------                  #
-#            EMBED A MATPLOTLIB ANIMATION INSIDE YOUR             #
-#            OWN GUI!                                             #
-#                                                                 #
-###################################################################
-
 import sys
 import os
 from PyQt5.QtWidgets import *
@@ -24,8 +15,9 @@ from matplotlib.lines import Line2D
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import time
 import threading
-from lib_pressure_sensor import pressureSensor
-p = pressureSensor()
+from lib_pressure_sensor import pressureSensor # <- Sachin change this to Psensor. I forget what i put
+
+p = pressureSensor() # <- Sachin change this to whats in the pressure senor class
 
 
 class CustomMainWindow(QMainWindow):
@@ -151,18 +143,8 @@ class CustomFigCanvas(FigureCanvas, TimedAnimation):
         return
 
 
-''' End Class '''
-
-
-# You need to setup a signal slot mechanism, to
-# send data to your GUI in a thread-safe way.
-# Believe me, if you don't do this right, things
-# go very very wrong..
 class Communicate(QObject):
     data_signal = pyqtSignal(float)
-
-
-''' End Class '''
 
 
 def dataSendLoop(addData_callbackFunc):
@@ -170,7 +152,6 @@ def dataSendLoop(addData_callbackFunc):
     mySrc = Communicate()
     mySrc.data_signal.connect(addData_callbackFunc)
 
-    # Simulate some data
     n = np.linspace(0, 499, 500)
     y = 50 + 25 * (np.sin(n / 8.3)) + 10 * (np.sin(n / 7.5)) - 5 * (np.sin(n / 1.5))
     i = 0
@@ -179,7 +160,7 @@ def dataSendLoop(addData_callbackFunc):
         if (i > 499):
             i = 0
         time.sleep(0.1)
-        mySrc.data_signal.emit(p.read_pressure())  # <- Here you emit a signal!
+        mySrc.data_signal.emit(p.read_pressure())  # <- Sachin change this
         i += 1
     ###
 

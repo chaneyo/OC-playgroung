@@ -1,6 +1,10 @@
 import random
+import csv
+from itertools import count
+import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
 from serial import Serial
 from decimal import Decimal
 
@@ -31,12 +35,54 @@ class pressureSensor(object):
         return z
 
     def plotter(self):
+        plt.style.use('fivethirtyeight')
 
-        plt.axis([0, 10, 0, 1])
+        x_vals += 1
+        y_vals = self.read_pressure()
 
-        for i in range(10):
-            y = self.read_pressure()
-            plt.scatter(i, y)
-            plt.pause(0.05)
+        index = count()
 
+    def animate(self):
+        # data = pd.read_csv('data.csv')
+        z = 0
+        x = (z + 1) # data['x_value']
+        y1 = self.read_pressure() # data['pressure']
+
+        plt.cla()
+
+        plt.plot(x, y1, label='pressure PSI')
+
+        plt.legend(loc='upper left')
+        plt.tight_layout()
+
+        ani = FuncAnimation(plt.gcf(), animate, interval=1000)
+
+        plt.tight_layout()
         plt.show()
+
+    def csv(self):
+        x_value = 0
+        pressure = self.read_pressure()
+
+        fieldnames = ["x_value", "pressure"]
+
+        with open('data.csv', 'w') as csv_file:
+            csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+            csv_writer.writeheader()
+
+        while True:
+            with open('data.csv', 'a') as csv_file:
+                csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+                info = {
+                    "x_value": x_value,
+                    "pressure": pressure
+                }
+
+                csv_writer.writerow(info)
+                print(x_value, pressure)
+
+                x_value += 1
+                pressure = pressure
+
+            time.sleep(1)
