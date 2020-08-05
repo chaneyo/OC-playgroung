@@ -1,5 +1,7 @@
 import sys
 import os
+import subprocess
+from collections import deque
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -7,6 +9,7 @@ import functools
 import numpy as np
 import random as rd
 import matplotlib
+import csv
 
 matplotlib.use("Qt5Agg")
 from matplotlib.figure import Figure
@@ -15,9 +18,11 @@ from matplotlib.lines import Line2D
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import time
 import threading
-from lib_pressure_sensor import pressureSensor # <- Sachin change this to Psensor. I forget what i put
 
-p = pressureSensor() # <- Sachin change this to whats in the pressure senor class
+
+# from lib_pressure_sensor import pressureSensor # <- Sachin change this to Psensor. I forget what i put
+
+# p = pressureSensor() # <- Sachin change this to whats in the pressure senor class
 
 
 class CustomMainWindow(QMainWindow):
@@ -147,20 +152,35 @@ class Communicate(QObject):
     data_signal = pyqtSignal(float)
 
 
+class FileTailer(object):
+    def csv1(self):
+        with open("/home/othman/Desktop/testdis.csv", "r") as fin:
+            deq = deque(csv.reader(fin), 1)
+
+        for sub_list in deq:
+            print(sub_list)
+            return sub_list
+
+
 def dataSendLoop(addData_callbackFunc):
     # Setup the signal-slot mechanism.
     mySrc = Communicate()
     mySrc.data_signal.connect(addData_callbackFunc)
-
+    s = FileTailer()
     n = np.linspace(0, 499, 500)
-    y = 50 + 25 * (np.sin(n / 8.3)) + 10 * (np.sin(n / 7.5)) - 5 * (np.sin(n / 1.5))
+    g = 50 + 25 * (np.sin(n / 8.3)) + 10 * (np.sin(n / 7.5)) - 5 * (np.sin(n / 1.5))
     i = 0
+    # jj = s.csv1()
+    # y = str(jj).strip("] ' [")
+    # print(y)
 
     while (True):
         if (i > 499):
             i = 0
         time.sleep(0.1)
-        mySrc.data_signal.emit(p.read_pressure())  # <- Sachin change this
+        jj = s.csv1()
+        y = str(jj).strip("] ' [")
+        mySrc.data_signal.emit(float(y))  # <- Sachin change this
         i += 1
     ###
 

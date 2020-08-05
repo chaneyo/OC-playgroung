@@ -1,5 +1,6 @@
 import random
 import csv
+import time
 from itertools import count
 import pandas as pd
 import numpy as np
@@ -30,7 +31,8 @@ class pressureSensor(object):
         x = int(r[2:9],16)
         print('int value: ',x)
         z = ((x*1000)/(4194304))*0.0145038"""  # move this back in when implamenting
-        z = random.random()  # take this out
+        z = random.randrange(10)  # take this out
+        time.sleep(1)
         print(z)
         return z
 
@@ -61,28 +63,14 @@ class pressureSensor(object):
         plt.show()
 
     def csv(self):
-        x_value = 0
-        pressure = self.read_pressure()
+        path = "/home/othman/Desktop/testdis.csv"
+        # f = open("/home/othman/Desktop/testdis.csv", "w", newline="")
+        # c = csv.writer(f)
+        # c.writerow(["pressure"])
 
-        fieldnames = ["x_value", "pressure"]
-
-        with open('data.csv', 'w') as csv_file:
-            csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-            csv_writer.writeheader()
-
-        while True:
-            with open('data.csv', 'a') as csv_file:
-                csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-
-                info = {
-                    "x_value": x_value,
-                    "pressure": pressure
-                }
-
-                csv_writer.writerow(info)
-                print(x_value, pressure)
-
-                x_value += 1
-                pressure = pressure
-
-            time.sleep(1)
+        for i in range(1000000):
+            f = open(path, "a", newline="", encoding='utf-8-sig')
+            c = csv.writer(f)
+            c.writerow([self.read_pressure()])
+            f.close()
+        # f.close()
