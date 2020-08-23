@@ -1,6 +1,9 @@
 import random
 import csv
 import time
+import subprocess
+import signal
+import os
 from itertools import count
 import pandas as pd
 import numpy as np
@@ -36,41 +39,38 @@ class pressureSensor(object):
         print(z)
         return z
 
-    def plotter(self):
-        plt.style.use('fivethirtyeight')
-
-        x_vals += 1
-        y_vals = self.read_pressure()
-
-        index = count()
-
-    def animate(self):
-        # data = pd.read_csv('data.csv')
-        z = 0
-        x = (z + 1) # data['x_value']
-        y1 = self.read_pressure() # data['pressure']
-
-        plt.cla()
-
-        plt.plot(x, y1, label='pressure PSI')
-
-        plt.legend(loc='upper left')
-        plt.tight_layout()
-
-        ani = FuncAnimation(plt.gcf(), animate, interval=1000)
-
-        plt.tight_layout()
-        plt.show()
-
     def csv(self):
         path = "/home/othman/Desktop/testdis.csv"
-        # f = open("/home/othman/Desktop/testdis.csv", "w", newline="")
-        # c = csv.writer(f)
-        # c.writerow(["pressure"])
+        try:
+            while True:
+                for i in range(1000000):
+                    f = open(path, "a", newline="", encoding='utf-8-sig')
+                    c = csv.writer(f)
+                    c.writerow([self.read_pressure()])
+                    f.close()
+        except KeyboardInterrupt:
+            print("Pressed Ctrl-C to terminate the pressure collection")
+            pass
 
-        for i in range(1000000):
-            f = open(path, "a", newline="", encoding='utf-8-sig')
-            c = csv.writer(f)
-            c.writerow([self.read_pressure()])
-            f.close()
-        # f.close()
+    def csv_clear(self):
+        data_in = ['15']
+        with open('/home/othman/Desktop/testdis.csv', 'w') as outfile:
+            outfile.writelines(data_in)
+        x = 'cleared'
+        print(x)
+        return x
+
+    def csv_move(self):
+        myfile = "/home/othman/Desktop/testdis.csv"
+        try:
+            os.remove(myfile)
+        except OSError as e:
+            print("Error: %s - %s." % (e.filename, e.strerror))
+
+
+if __name__ == '__main__':
+    p = pressureSensor()
+    pro = subprocess.Popen(['gnome-terminal', '--disable-factory', '-e', 'python3 /home/othman/PycharmProjects/GitStuff/OC-playgroung/pppgui/fluidics/plotter.py'], preexec_fn=os.setpgrp)
+    p.csv()
+    os.killpg(pro.pid, signal.SIGINT)
+    p.csv_clear()

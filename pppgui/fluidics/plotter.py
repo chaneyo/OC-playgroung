@@ -158,7 +158,6 @@ class FileTailer(object):
             deq = deque(csv.reader(fin), 1)
 
         for sub_list in deq:
-            print(sub_list)
             return sub_list
 
 
@@ -170,9 +169,6 @@ def dataSendLoop(addData_callbackFunc):
     n = np.linspace(0, 499, 500)
     g = 50 + 25 * (np.sin(n / 8.3)) + 10 * (np.sin(n / 7.5)) - 5 * (np.sin(n / 1.5))
     i = 0
-    # jj = s.csv1()
-    # y = str(jj).strip("] ' [")
-    # print(y)
 
     while (True):
         if (i > 499):
